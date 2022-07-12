@@ -45,6 +45,8 @@ SECRET_KEY = 'fx3suy=)c8f0kn6l-f0+_=ndtlc)#5v^wg-@f9x=932ummhhf$'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'www.wertyu.pythonanywhere.com',
+    'wertyu.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
     '[::1]',
