@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
 from .forms import CommentForm, PostForm
-from .models import Follow, Group, Post, User
+from .models import Follow, Group, Like, Post, User
 from .utils import paginate
 
 
@@ -48,11 +48,17 @@ def post_detail(request, post_id):
         Post.objects.select_related('author'), id=post_id)
     posts_count = post.author.posts.count()
     comments = post.comments.all()
+    like = request.user.is_authenticated and Like.objects.filter(
+        post_id=post_id, author=request.user).exists()
+    likes_count = post.likes.count()
     context = {
         'post': post,
         'posts_count': posts_count,
         'form': CommentForm(),
         'comments': comments,
+        'like': like,
+        'likes_count': likes_count,
+
     }
     return render(request, 'posts/post_detail.html', context)
 
@@ -125,3 +131,17 @@ def profile_unfollow(request, username):
     author = get_object_or_404(User, username=username)
     Follow.objects.filter(author=author, user=request.user).delete()
     return redirect('posts:profile', username)
+
+
+@login_required
+def post_like(request, post_id):
+    """Like."""
+    Like.objects.get_or_create(post_id=post_id, author=request.user)
+    return redirect('posts:post_detail', post_id=post_id)
+
+
+@login_required
+def post_unlike(request, post_id):
+    """Unlike."""
+    Like.objects.filter(post_id=post_id, author=request.user).delete()
+    return redirect('posts:post_detail', post_id=post_id)

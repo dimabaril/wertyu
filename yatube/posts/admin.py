@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Follow, Group, Post
+from .models import Comment, Follow, Group, Like, Post
 
 
 @admin.register(Post)
@@ -17,3 +17,5 @@ admin.site.register(Group)
 admin.site.register(Comment)
 
 admin.site.register(Follow)
+
+admin.site.register(Like)

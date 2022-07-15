@@ -22,6 +22,7 @@ urlpatterns = [
     path(
         'posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
     path('follow/', views.follow_index, name='follow_index'),
+    # Follow
     path(
         'profile/<str:username>/follow/',
         views.profile_follow,
@@ -32,4 +33,16 @@ urlpatterns = [
         views.profile_unfollow,
         name='profile_unfollow'
     ),
+    # Like
+    path(
+        'posts/<int:post_id>/like/',
+        views.post_like,
+        name='post_like'
+    ),
+    path(
+        'posts/<int:post_id>/unlike/',
+        views.post_unlike,
+        name='post_unlike'
+    ),
+
 ]

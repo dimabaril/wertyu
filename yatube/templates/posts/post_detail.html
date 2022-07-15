@@ -48,6 +48,18 @@
       </a>
       {% endif %}
 
+      {% if like %}
+        <a class="btn btn-primary btn-light"
+          href="{% url 'posts:post_unlike' post.id %}" role="button">
+          Likes: {{ likes_count }}
+        </a>
+      {% else %}
+        <a class="btn btn-primary btn-primary"
+          href="{% url 'posts:post_like' post.id %}" role="button">
+          Likes: {{ likes_count }}
+        </a>
+      {% endif %}
+
       {% include 'includes/comment.html' %}
 
     </article>
