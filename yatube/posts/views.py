@@ -7,7 +7,7 @@ from .models import Follow, Group, Like, Post, User
 from .utils import paginate
 
 
-@cache_page(1, key_prefix='index_page')
+@cache_page(5, key_prefix='index_page')
 def index(request):
     """Отображаем главную страничку со всеми постами."""
     posts_list = Post.objects.select_related('group', 'author')
